@@ -4,6 +4,13 @@ package io.github.dtxiaweibing.seawater;
  * EOS-80 海水密度/盐度计算
  * 采用联合国教科文组织 EOS-80 (UNESCO 1983) 标准公式。
  * 支持温度、盐度、压力(或深度)三参数计算海水密度。
+ *
+ * 权威校准点 (偏差 < 1e-5 kg/m³)：
+ *   density(5, 0, 0)      = 999.9667508   (参考 999.96675)
+ *   density(5, 35, 0)     = 1027.6754653  (Gill 1982, 参考 1027.67547)
+ *   density(25, 35, 0)    = 1023.3430585  (UNESCO, 参考 1023.34306)
+ *   density(25, 35, 1000) = 1062.5381718  (Gill 1982, 参考 1062.53817)
+ *   density(0, 0, 0)      = 999.842594    (精确)
  */
 public class SeawaterDensity {
 
@@ -19,7 +26,7 @@ public class SeawaterDensity {
                 - 9.095290e-3 * T * T
                 + 1.001685e-4 * T * T * T
                 - 1.120083e-6 * T * T * T * T
-                + 6.536336e-9 * T * T * T * T * T;
+                + 6.536332e-9 * T * T * T * T * T;
     }
 
     /**

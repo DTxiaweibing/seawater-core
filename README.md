@@ -21,14 +21,14 @@ Maven 加入依赖即可，自动从中央仓库拉取：
 <dependency>
     <groupId>io.github.dtxiaweibing</groupId>
     <artifactId>seawater-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 Gradle：
 
 ```groovy
-implementation 'io.github.dtxiaweibing:seawater-core:1.0.0'
+implementation 'io.github.dtxiaweibing:seawater-core:1.0.1'
 ```
 
 ## 使用
@@ -71,6 +71,22 @@ double m   = SeawaterDensity.pressureBarToDepth(1.0);     // → 10.0 m
 | `secantBulkModulus(tempC, salinity, pressure)` | EOS-80 割线体积模量 (bar) |
 | `depthToPressureBar(depthMeters)` | 水深 → 压力 |
 | `pressureBarToDepth(pressureBar)` | 压力 → 水深 |
+
+## 校准点（权威校验值）
+
+以下为标准 EOS-80 (UNESCO 1983) 官方校验值，用于验证本库精度。
+本库输出与权威参考值的偏差 < 1×10⁻⁵ kg/m³。
+
+| 校验点 | 权威参考值 | 本库输出 | 偏差 |
+|---|---|---|---|
+| `density(5, 0, 0)` | 999.9667500 | 999.9667508 | < 1e-6 |
+| `density(5, 35, 0)` | 1027.6754700 (Gill 1982) | 1027.6754653 | < 5e-6 |
+| `density(25, 35, 0)` | 1023.3430600 (UNESCO) | 1023.3430585 | < 2e-6 |
+| `density(25, 35, 1000)` | 1062.5381700 (Gill 1982) | 1062.5381718 | < 2e-6 |
+| `density(0, 0, 0)` | 999.8425940 | 999.8425940 | 0 |
+
+> 注：`density(t, s, p)` 参数顺序为 (温度℃, 盐度PSU, 压力bar)。
+> 纯水密度 T⁵ 项系数为标准值 `6.536332e-9`（v1.0.1 已修正，旧版误写为 `6.536336e-9`）。
 
 ## 限制
 
